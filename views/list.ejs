@@ -9,6 +9,15 @@
         <link rel="stylesheet" href="">
     </head>
     <body>
-        <h1>Hey! It's a <%= day %></h1>
+        <h1><%= date %></h1>
+        <ul>
+            <li>Buy food</li>
+            <li>Cook food</li>
+            <li>Eat food</li>
+        </ul>
+        <form action="/" method="POST">
+            <input type="text" name="newItem">
+            <button type="submit" name="button">Add to list</button>
+        </form>
     </body>
 </html>
