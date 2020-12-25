@@ -1,16 +1,4 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-
-<body>
+    <%- include("header") -%>
     <div class="box" id="heading">
         <h1>
             <%= listTitle %>
@@ -25,11 +13,9 @@
                 </p>
             </div>
             <% } %>
-                <form action="/" method="POST">
-                    <input type="text" name="newItem" placeholder="Enter New Item" autocomplete="off">
-                    <button type="submit" name="list" value= <%= listTitle %> >+</button>
-                </form>
+            <form action="/" method="POST">
+                <input type="text" name="newItem" placeholder="Enter New Item" autocomplete="off">
+                <button type="submit" name="list" value= <%= listTitle %> >+</button>
+            </form>
     </div>
-</body>
-
-</html>
+    <%- include("footer") -%>
