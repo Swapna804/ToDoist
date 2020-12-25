@@ -1,26 +1,35 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-    </head>
-    <body>
-        <h1><%= date %></h1>
-        <ul>
-            <li>Buy food</li>
-            <li>Cook food</li>
-            <li>Eat food</li>
-            <% for(i=0;i<items.length;i++){ %>
-                <li> <%= items[i] %> </li>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div class="box" id="heading">
+        <h1>
+            <%= listTitle %>
+        </h1>
+    </div>
+    <div class="box">
+        <% for(i=0;i<items.length;i++){ %>
+            <div class="item">
+                <input type="checkbox">
+                <p>
+                    <%= items[i] %>
+                </p>
+            </div>
             <% } %>
-        </ul>
-        <form action="/" method="POST">
-            <input type="text" name="newItem">
-            <button type="submit" name="button">Add to list</button>
-        </form>
-    </body>
+                <form action="/" method="POST">
+                    <input type="text" name="newItem" placeholder="Enter New Item" autocomplete="off">
+                    <button type="submit" name="list" value= <%= listTitle %> >+</button>
+                </form>
+    </div>
+</body>
+
 </html>
