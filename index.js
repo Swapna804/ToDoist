@@ -11,7 +11,7 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 
 //Connecting to the Mongo database using ODM Mongoose-
-mongoose.connect('mongodb+srv://admin-sam:test-123@cluster0.e597e.mongodb.net/todolistDB', {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
+mongoose.connect('mongodb+srv://< your Mongo DB credentials >/todolistDB', {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
 
 // Setting up schemas for the collections-
 const itemsSchema = {
@@ -112,7 +112,11 @@ app.get("/:customListName", function(req, res) {
     });
 });
 
-//Launching server on port 3000-
-app.listen(3000, function() {
-    console.log("Server started on port 3000");
+//Launching server-
+let port = process.env.PORT;
+if(port === null || port === ""){
+    port = 3000;
+}
+app.listen(port, function() {
+    console.log("Server started successfully!");
 });
