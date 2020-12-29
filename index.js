@@ -1,16 +1,20 @@
+//Dependencies and packages-
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
+const _ = require("lodash");
 const Date = require(__dirname + "/date.js");
 
+//Setting up my app and ejs view engine-
 const app = express();
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
-
 app.set("view engine", "ejs");
 
-mongoose.connect('mongodb://localhost:27017/todolistDB', {useNewUrlParser: true, useUnifiedTopology: true});
+//Connecting to the Mongo database using ODM Mongoose-
+mongoose.connect('mongodb://localhost:27017/todolistDB', {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
+
+// Setting up schemas for the collections-
 const itemsSchema = {
     name: String,
 };
@@ -19,16 +23,15 @@ const listsSchema = {
     items: [itemsSchema],
 }
 
+//Making models for those schemas-
 const Item = mongoose.model("Item", itemsSchema);
 const List = mongoose.model("List", listsSchema);
 
-const date = Date.getDate();
+//Miscellaneous dependencies-
+const date = _.capitalize(Date.getDate());
 const defaultList=[{name: "Welcome to our ToDo List"}, {name: "Press + to add more items"}, {name: "<-- Use check-box to mark an item as done!"}];
 
-// Item.deleteMany({name: /o/}, function(){
-//     console.log("deleted");
-// });
-
+//Get and Post request for the home route-
 app.get("/", function(req, res) {
     Item.find({}, function(err, foundItems){
         if(foundItems.length === 0){
@@ -50,7 +53,7 @@ app.get("/", function(req, res) {
 
 app.post("/", function(req, res) {
     const itemName = req.body.newItem;
-    const listName = req.body.list;
+    const listName = _.capitalize(req.body.list);
     
     const item = new Item({
         name: itemName,
@@ -71,9 +74,10 @@ app.post("/", function(req, res) {
     }
 });
 
+//Post request to delete list item from home route or custom list
 app.post("/delete", function(req, res){
     const checkedItemId = req.body.checked;
-    const listName = req.body.listName;
+    const listName = _.capitalize(req.body.listName);
     if(listName === date){
         Item.findByIdAndRemove(checkedItemId, function(err){
             if(!err){
@@ -91,8 +95,9 @@ app.post("/delete", function(req, res){
     }
 });
 
+//Get request for custom list
 app.get("/:customListName", function(req, res) {
-    const customListName = req.params.customListName;
+    const customListName = _.capitalize(req.params.customListName);
     List.findOne({name: customListName}, function(err, foundList){
         if(!err){
             if(!foundList){
@@ -109,17 +114,7 @@ app.get("/:customListName", function(req, res) {
     });
 });
 
-// app.post("/work", function(req, res) {
-//     let item = req.body.newItem;
-//     workItems.push(item);
-
-//     res.redirect("/work");
-// });
-
-// app.get("/about", function(req,res){
-//     res.render("about");
-// });
-
+//Launching server on port 3000-
 app.listen(3000, function() {
     console.log("Server started on port 3000");
 });
