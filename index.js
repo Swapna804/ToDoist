@@ -11,7 +11,7 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 
 //Connecting to the Mongo database using ODM Mongoose-
-mongoose.connect('mongodb://localhost:27017/todolistDB', {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
+mongoose.connect('mongodb+srv://admin-sam:test-123@cluster0.e597e.mongodb.net/todolistDB', {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
 
 // Setting up schemas for the collections-
 const itemsSchema = {
