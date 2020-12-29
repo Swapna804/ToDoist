@@ -3,7 +3,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const _ = require("lodash");
-const Date = require(__dirname + "/date.js");
 
 //Setting up my app and ejs view engine-
 const app = express();
@@ -27,8 +26,7 @@ const listsSchema = {
 const Item = mongoose.model("Item", itemsSchema);
 const List = mongoose.model("List", listsSchema);
 
-//Miscellaneous dependencies-
-const date = _.capitalize(Date.getDate());
+//Default list items-
 const defaultList=[{name: "Welcome to our ToDo List"}, {name: "Press + to add more items"}, {name: "<-- Use check-box to mark an item as done!"}];
 
 //Get and Post request for the home route-
@@ -46,7 +44,7 @@ app.get("/", function(req, res) {
             res.redirect("/");
         }
         else{
-            res.render("list", { listTitle: date, items: foundItems});
+            res.render("list", { listTitle: "Today", items: foundItems});
         }
     });
 });
@@ -59,7 +57,7 @@ app.post("/", function(req, res) {
         name: itemName,
     })
 
-    if(listName === date){
+    if(listName === "Today"){
         item.save();
         res.redirect("/");
     }
@@ -78,7 +76,7 @@ app.post("/", function(req, res) {
 app.post("/delete", function(req, res){
     const checkedItemId = req.body.checked;
     const listName = _.capitalize(req.body.listName);
-    if(listName === date){
+    if(listName === "Today"){
         Item.findByIdAndRemove(checkedItemId, function(err){
             if(!err){
                 console.log("Successfully deleted checked item");
