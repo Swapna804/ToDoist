@@ -17,32 +17,40 @@ const itemsSchema = {
 
 const Item = mongoose.model("Item", itemsSchema);
 
-const arr=[{name: "Welcome to our ToDo List"}, {name: "Press + to add more items"}, {name: "<-- Use this to mark as an Item as done!"}];
-Item.insertMany(arr, function(err){
-    if(err){
-        console.log(err);
-    }
-    else{
-        console.log("Successfully added to DB!");
-    }
-});
+const arr=[{name: "Welcome to our ToDo List"}, {name: "Press + to add more items"}, {name: "<-- Use check-box to mark an item as done!"}];
+
+// Item.deleteMany({name: /o/}, function(){
+//     console.log("deleted");
+// });
 
 app.get("/", function(req, res) {
     let date = Date.getDate();
-    res.render("list", { listTitle: date, items: items });
+    Item.find({}, function(err, foundItems){
+        if(foundItems === 0){
+            Item.insertMany(arr, function(err){
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    console.log("Successfully added to DB!");
+                }
+            });
+            res.redirect("/");
+        }
+        else{
+            res.render("list", { listTitle: date, items: foundItems});
+        }
+    });
 });
 
 app.post("/", function(req, res) {
-    let item = req.body.newItem;
-    console.log(item);
-    if(req.body.list === 'Work'){
-        workItems.push(item);
-        res.redirect("/work");
-    }
-    else{
-        items.push(item);
-        res.redirect("/");
-    }
+    let itemName = req.body.newItem;
+    
+    const item = new Item({
+        name: itemName,
+    })
+    item.save();
+    res.redirect("/");
 });
 
 app.get("/work", function(req, res) {
