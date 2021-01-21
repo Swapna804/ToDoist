@@ -33,11 +33,11 @@ Examples of unacceptable behavior by participants include:
 
 ## Our Responsibilities
 
-Project maintainers are responsible for clarifying the standards of acceptable
+* Project maintainers are responsible for clarifying the standards of acceptable
 behavior and are expected to take appropriate and fair corrective action in
 response to any instances of unacceptable behavior.
 
-Project maintainers have the right and responsibility to remove, edit, or
+* Project maintainers have the right and responsibility to remove, edit, or
 reject comments, commits, code, wiki edits, issues, and other contributions
 that are not aligned to this Code of Conduct, or to ban temporarily or
 permanently any contributor for other behaviors that they deem inappropriate,
@@ -68,9 +68,9 @@ members of the project's leadership.
 ## Attribution
 
 This Code of Conduct is adapted from the [Contributor Covenant][homepage], version 1.4,
-available at https://www.contributor-covenant.org/version/1/4/code-of-conduct.html
+available at [Contributor Covenant Version 1.4](https://www.contributor-covenant.org/version/1/4/code-of-conduct.html)
 
 [homepage]: https://www.contributor-covenant.org
 
 For answers to common questions about this code of conduct, see
-https://www.contributor-covenant.org/faq
+[Contributor Covenant FAQ](https://www.contributor-covenant.org/faq)
